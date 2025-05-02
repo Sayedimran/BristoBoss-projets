@@ -6,7 +6,7 @@ const Popularmenu = () => {
     <section>
       <SectionTitle
         heading={"Form Our Menu"}
-        subHeading={"Propular Our Menu"}
+        subHeading={"Propular Our Menus"}
       />
     </section>
   );
