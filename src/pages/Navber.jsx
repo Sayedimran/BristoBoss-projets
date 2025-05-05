@@ -2,7 +2,7 @@ import React from "react";
 
 const Navber = () => {
   return (
-    <div className="navbar fixed z-10 opacity-30 bg-black text-white px-4 md:px-8 py-3">
+    <div className="navbar fixed z-10 opacity-30 bg-black text-white px-4 md:px-8 py-1 lg:max-w-screen-xl">
       {/* Left side: Logo */}
       <div className="flex-1">
         <a className="text-xl md:text-2xl font-bold">
