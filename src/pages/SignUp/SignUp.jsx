@@ -2,16 +2,18 @@ import React, { useContext } from "react";
 import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../../providers/AuthProvider";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const SignUp = () => {
-  const { createUser } = useContext(AuthContext);
+  const { createUser, updateUserProfile } = useContext(AuthContext);
   const {
     register,
     handleSubmit,
-    watch,
+    reset,
     formState: { errors },
   } = useForm();
+  const navigate = useNavigate();
 
   const onSubmit = (data) => {
     console.log(data);
@@ -19,6 +21,20 @@ const SignUp = () => {
       .then((result) => {
         const loggedUser = result.user;
         console.log(loggedUser);
+        updateUserProfile(data.name, data.photo)
+          .then(() => {
+            console.log("user profile info updated");
+
+            Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: "Your work has been saved",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            navigate("/");
+          })
+          .catch((error) => console.log(error));
       })
       .then((error) => {
         const errors = error.message;
@@ -65,7 +81,7 @@ const SignUp = () => {
                     placeholder="photo URL...."
                   />
                   {errors.photo && (
-                    <span className="text-red-600 ">Name is required</span>
+                    <span className="text-red-600 ">Photo URL is required</span>
                   )}
                 </div>
                 <div className="form-control">

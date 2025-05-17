@@ -1,4 +1,4 @@
-import React from "react";
+
 import MenuItem from "../../Shared/MenuItem";
 import Cover from "../../Shared/Cover/Cover";
 import { Link } from "react-router-dom";

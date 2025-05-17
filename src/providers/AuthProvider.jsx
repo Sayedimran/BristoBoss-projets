@@ -5,10 +5,11 @@ import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut,
+  updateProfile,
 } from "firebase/auth";
 import { app } from "../firebase/firebase.config";
 
- export const AuthContext = createContext(null);
+export const AuthContext = createContext(null);
 const auth = getAuth(app);
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -22,12 +23,19 @@ const AuthProvider = ({ children }) => {
 
   const signIn = (email, password) => {
     setLoading(true);
-    return signInWithEmailAndPassword(auth,email, password);
+    return signInWithEmailAndPassword(auth, email, password);
   };
 
   const logOut = () => {
     setLoading(true);
     return signOut(auth);
+  };
+
+  const updateUserProfile = (name, photo) => {
+    return updateProfile(auth.currentUser, {
+      displayName: name,
+      photoURL: photo,
+    });
   };
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
@@ -44,6 +52,7 @@ const AuthProvider = ({ children }) => {
     signIn,
     signOut,
     logOut,
+    updateUserProfile,
   };
 
   return (

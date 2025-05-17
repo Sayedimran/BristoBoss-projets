@@ -1,8 +1,7 @@
-import React from "react";
+
 import { Helmet } from "react-helmet-async";
 import Cover from "../Shared/Cover/Cover";
 import menuImg from "../../assets/menu/banner3.jpg";
-import PopularMenu from "../PopularMenu";
 import dessertImg from "../../assets/menu/dessert-bg.jpeg";
 import pizzaImg from "../../assets/menu/pizza-bg.jpg";
 import useMenu from "../../hooks/useMenu";
