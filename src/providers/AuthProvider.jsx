@@ -10,6 +10,7 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { app } from "../firebase/firebase.config";
+import useAxiosPublic from "../hooks/useAxiosPublic";
 
 export const AuthContext = createContext(null);
 const auth = getAuth(app);
@@ -18,6 +19,7 @@ const AuthProvider = ({ children }) => {
 
   const [loading, setLoading] = useState(true);
   const googleProvider = new GoogleAuthProvider();
+  const axiosPublic = useAxiosPublic();
 
   const createUser = (email, password) => {
     setLoading(true);
@@ -47,6 +49,21 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
+      if (createUser) {
+        //  get token and store clint
+        const userInfo = { email: currentUser?.email };
+        console.log(userInfo, "userInfo");
+
+        axiosPublic.post("/jwt", userInfo)
+          .then((res) => {
+          if (res.data.token) {
+            localStorage.setItem("access-token", res.data.token);
+          }
+        });
+      } else {
+        localStorage.removeItem("access-token");
+        // TODO: remove token (if token stored in the clint side: Local storage , cashing , in memory )
+      }
       setLoading(false);
       console.log("Current User", currentUser);
     });
