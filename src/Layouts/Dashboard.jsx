@@ -13,18 +13,22 @@ import { NavLink, Outlet } from "react-router-dom";
 import useCart from "../hooks/useCart";
 import { AiFillContacts } from "react-icons/ai";
 import { IoRestaurant } from "react-icons/io5";
+import useAdmin from "../hooks/useAdmin";
 
 const Dashboard = () => {
   const [cart] = useCart();
   // TODO: get is admin value form the database
 
-  const isAdmin = true;
+  const [isAdmin] = useAdmin();
+ 
+
+  // const isAdmin = true;
   return (
     <div className="flex gap-2">
       {/* Dashboard bar */}
       <div className="w-64 min-h-screen bg-orange-400">
         <ul className="menu p-4">
-          {isAdmin ? (
+          {isAdmin? (
             <>
               <li>
                 <NavLink to="/dashboard/AdminHome">

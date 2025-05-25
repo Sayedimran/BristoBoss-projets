@@ -11,6 +11,9 @@ import Secret from "../pages/Shared/Secret/Secret";
 import Dashboard from "../Layouts/Dashboard";
 import Cart from "../pages/Dashboard/Cart/Cart";
 import AllUsers from "../pages/Dashboard/AllUsers/AllUsers";
+import AddItems from "../pages/Dashboard/AddItem/AddItems";
+import AdminRoutes from "./AdminRoutes";
+import ManageItems from "../pages/Dashboard/ManageItems/ManageItems";
 
 const router = createBrowserRouter([
   {
@@ -54,18 +57,38 @@ const router = createBrowserRouter([
         <Dashboard />
       </PrivateRoute>
     ),
+    // normal user routes
     children: [
       {
         path: "cart",
         element: <Cart />,
       },
 
-      // Admin routes 
-
+      // Admin routes
       {
-        path:'users',
-        element:<AllUsers/>
-      }
+        path: "addItems",
+        element: (
+          <AdminRoutes>
+            <AddItems />
+          </AdminRoutes>
+        ),
+      },
+      {
+        path: "users",
+        element: (
+          <AdminRoutes>
+            <AllUsers />
+          </AdminRoutes>
+        ),
+      },
+      {
+        path: "manageItems",
+        element: (
+          <AdminRoutes>
+            <ManageItems />
+          </AdminRoutes>
+        ),
+      },
     ],
   },
 ]);
